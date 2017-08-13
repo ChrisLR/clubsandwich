@@ -178,5 +178,8 @@ class KeyAssignedListView(SettingsListView):
     def terminal_read(self, val):
         super().terminal_read(val)
         char = chr(terminal.state(terminal.TK_WCHAR))
-        
-
+        label_index = next((index for index, label in enumerate(self.labels)
+                            if label.text == char), None)
+        if label_index is not None:
+            self.first_responder_container_view.set_first_responder(
+                self.values[label_index])
